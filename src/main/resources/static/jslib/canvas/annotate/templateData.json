@@ -1,0 +1,18 @@
+[
+  {
+    "groupid": "01",
+    "groupname": "批注模板",
+    "data": [{
+      "data_type": "text",
+      "content": "这是批注模板：__请输入__"
+    }]
+  },
+  {
+    "groupid": "02",
+    "groupname": "签名模板",
+    "data": [{
+      "data_type": "image",
+      "content": "/jslib/canvas/annotate/images/ear.png"
+    }]
+  }
+]

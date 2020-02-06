@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../jslib/layui-v2.5.4/css/layui.css" media="all">
+    <style>
+        .fileList {
+            display: inline-block;
+            margin:5px;
+            /*padding: 6px 10px;*/
+            line-height: 20px;
+            border: 1px solid #88A2C2;
+            background: #E4F3FF;
+            text-align: left;
+        }
+        .fileList a {
+            color: #3674de;
+            text-decoration: none;
+        }
+        .fileList a:hover {
+            color: #3674de;
+            text-decoration: underline;
+        }
+        .fileList>img {
+            /*margin-left: 5px;*/
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .eui-fileupload{display:inline-block;position:relative;margin:5px;width:90px;height:108px;border-radius:2px;overflow:hidden}
+        .eui-fileupload img{display:block;width:100%;height:100%}
+    </style>
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form" lay-filter="lckcform">
+        <div class="layui-row">
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span
+                            style="color: red">*</span>预览图:</label>
+                    <div class="layui-input-block" id="faxSendFileList" thumbPath="/images/">
+                        <div class="eui-fileupload fileList" title="bottom-img.jpg">
+                            <img class="fax_thumb" id="fax_thumb_0" src="/annotate/images/bottom-img.jpg" filepath="/images/" filename="bottom-img.jpg">
+                        </div>
+                        <div class="eui-fileupload fileList" title="bottom-img.jpg">
+                            <img class="fax_thumb" id="fax_thumb_1" src="/annotate/images/bottom-img.jpg" filepath="/images/" filename="bottom-img.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="eui-search-btn xuanfu center">
+            <button class="layui-btn" lay-submit lay-filter="formSubmit">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>-->
+    </form>
+</div>
+<script src="../jslib/jquery/jquery-2.0.3.js" charset="utf-8"></script>
+<script src="../jslib/layui-v2.5.4/layui.all.js" charset="utf-8"></script>
+<script src='../jslib/polyfill/promise/promise-polyfill.js' type='text/javascript' charset='utf-8'></script>
+<script src='../jslib/canvas/annotate/zrender.js' type='text/javascript' charset='utf-8'></script>
+<script src='../jslib/canvas/annotate/annotate.js' type='text/javascript' charset='utf-8'></script>
+<script>
+    /**
+     * 传真批注
+     * @param evt
+     */
+    var remarkfax = function (evt) {
+        var src = $(evt.currentTarget).attr("src");
+        var curfilename = $(evt.currentTarget).attr("filename");
+        var filepath = $(evt.currentTarget).attr("filepath");
+        var id = $(evt.currentTarget).attr("id");
+
+        annotate.show({
+            baseImgUrl: src,
+            outImg: function (res) {
+                $.promiseAjax('/annotate/imgCtr/uploadBase64Img', {
+                    filepath: filepath,
+                    name: curfilename,
+                    images: res
+                },{RequestBody: true}).then(function (ret) {
+                    if (!!ret && ret.code === '0') {
+                        var path = ret.path || '';
+                        if (path) {
+                            $(".fax_thumb", this.$context).each(function () {
+                                var filename = $(this).attr('filename');
+                                $(this).attr("src", '/annotate' + path + filename);
+                                $(this).attr("filepath", path);
+                                $(this).attr("filename", filename);
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    };
+
+    $(function () {
+        $(".fax_thumb").unbind().click($.proxy(remarkfax, this));
+    });
+</script>
+
+</body>
+</html>

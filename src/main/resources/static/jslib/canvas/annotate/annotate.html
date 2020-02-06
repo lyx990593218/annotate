@@ -1,0 +1,204 @@
+<div page="annotate">
+    <div class="canvas-content layui-row">
+        <div class="left layui-col-md6">
+            <canvas id="myCanvas" width="100" height="100">
+                <p>您的系统不支持此程序!</p>
+            </canvas>
+        </div>
+        <div class="right layui-col-md6 layui-form">
+            <form action="">
+                <div class="right-select">
+                    <lebal class="layui-lebal">
+                        模板批注:
+                    </lebal>
+                    <select id="group" name="group" lay-filter="selectReaded">
+                        <option value="1">已阅批注</option>
+                        <option value="2">已阅批注</option>
+                    </select>
+                </div>
+                <div class="right-btn">
+                    <button type="button" class="layui-btn layui-btn-normal out_annotate_img">
+                        生成批注
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-danger reset_annotate_img">
+                        重置
+                    </button>
+                </div>
+                <div class="right-list">
+
+                    <div>
+                        <textarea type="text" rows="4" placeholder="请输入批注内容(内容过长请换行)" id="input"></textarea>
+                        <button type="button" class="layui-btn layui-btn-normal out_annotate_text">
+                            确定
+                        </button>
+                    </div>
+
+                    <div id="controller" class="tooltips">
+                        <span class="tooltiptexts">
+                            改变批注文字颜色需先选中所需颜色
+                        </span>
+                        <div id="red_btn" class="color_btn color_btn_selected"></div>
+                        <div id="black_btn" class="color_btn"></div>
+                        <div id="blue_btn" class="color_btn"></div>
+                        <div id="green_btn" class="color_btn"></div>
+                        <div id="orange_btn" class="color_btn"></div>
+                        <div id="yellow_btn" class="color_btn"></div>
+                    </div>
+                </div>
+
+                <div class="right-list">
+                    <ul class="">
+                        <li data-type="text">批注1：已阅</li>
+                        <!--<li data-type="text">批注2：修改为xxx</li>-->
+                        <li data-type="text">批注3：这个部分再进行精简</li>
+                        <li data-type="text">批注4：用词要严谨</li>
+                        <li data-type="image">批注5：图片
+                            <img style="width: 50%;height: 50%;" src="/annotate/jslib/canvas/annotate/images/chart3.png"
+                                 alt="">
+                        </li>
+                        <li data-type="image">批注6：图片
+                            <img style="width: 50%;height: 50%;" src="/annotate/jslib/canvas/annotate/images/ear.png"
+                                 alt="">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    div[page="annotate"] .color_btn {
+        float: left;
+        margin: 5px 5px 0 0;
+        border: 3px solid white;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px 3px;
+        cursor: pointer;
+    }
+
+    div[page="annotate"] .color_btn:hover {
+        border: 3px solid violet;
+    }
+
+    div[page="annotate"] .color_btn_selected {
+        border: 3px solid blueviolet;
+    }
+
+    div[page="annotate"] #black_btn {
+        background-color: black;
+    }
+
+    div[page="annotate"] #blue_btn {
+        background-color: blue;
+    }
+
+    div[page="annotate"] #green_btn {
+        background-color: green;
+    }
+
+    div[page="annotate"] #red_btn {
+        background-color: red;
+    }
+
+    div[page="annotate"] #orange_btn {
+        background-color: orange;
+    }
+
+    div[page="annotate"] #yellow_btn {
+        background-color: yellow;
+    }
+
+    div[page="annotate"] {
+        height: 100%;
+    }
+
+    div[page="annotate"] .canvas-content {
+        width: 97%;
+        height: 95%;
+        padding: 10px;
+    }
+
+    div[page="annotate"] .canvas-content .left {
+        width: 70%;
+        height: 100%;
+        border: 1px solid darkgrey;
+    }
+
+    div[page="annotate"] .canvas-content .right {
+        width: 30%;
+        height: 100%;
+        padding: 0 0px 15px 15px;
+    }
+
+    div[page="annotate"] .right-select {
+        padding: 0 10px 10px 10px;
+    }
+
+    div[page="annotate"] .right-btn .reset_annotate_img {
+        float: right;
+    }
+
+    div[page="annotate"] .right-list {
+        padding: 10px;
+    }
+
+    div[page="annotate"] .right-list #input {
+        width: 100%;
+    }
+
+    div[page="annotate"] .right-list .out_annotate_text {
+        float: right;
+    }
+
+
+    div[page="annotate"] .right-list ul {
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 8px 0;
+    }
+
+    div[page="annotate"] .right-list li {
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 8px 0;
+        max-height: 300px;
+    }
+
+    div[page="annotate"] .right-list li img {
+        max-height: 200px;
+        background-color: rgba(200, 200, 200, 0.1);
+    }
+
+    div[page="annotate"] .right-btn {
+        padding: 10px;
+    }
+
+
+    div[page="annotate"] .tooltips {
+        position: relative;
+        display: inline-block;
+        /*border-bottom: 1px dotted black;*/
+    }
+
+    div[page="annotate"] .tooltips .tooltiptexts {
+        visibility: hidden;
+        width: 220px;
+        top: 100%;
+        left: 50%;
+        margin-left: -110px; /* 使用一半宽度 (120/2 = 60) 来居中提示工具 */
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+
+        /* 定位 */
+        position: absolute;
+        z-index: 1;
+    }
+
+    div[page="annotate"] .tooltips:hover .tooltiptexts {
+        visibility: visible;
+    }
+</style>

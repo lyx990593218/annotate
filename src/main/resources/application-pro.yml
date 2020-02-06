@@ -1,0 +1,11 @@
+# application-pro.yml
+server:
+  max-http-header-size : 10240000
+  servlet:
+    context-path : /annotate
+spring:
+  mvc:
+    static-path-pattern : /**
+  resources:
+    static-locations : file:static/,classpath:static/
+
