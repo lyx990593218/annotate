@@ -56,3 +56,5 @@ annotate.show({
         return upload.getAbsolutePath();
     }
 ```
+- 启动后示例：
+![启动后示例](1.png "启动后示例")
